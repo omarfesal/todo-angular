@@ -1,0 +1,21 @@
+<h1>Login</h1>
+<form (ngSubmit)="login(loginForm)"  #loginForm="ngForm"  >
+
+      <div class="form-group">
+          <label for="email">email</label>
+          <input required name="email" id="email"   #email="ngModel" [(ngModel)]="service.user.email"  class="form-control" type="text" placeholder="Enter Email">
+      </div>
+     
+      <div class="form-group">
+          <label for="password">password</label>
+          <input required name="password" id="password" #password="ngModel" [(ngModel)]="service.user.password" class="form-control" type="password" placeholder="Enter Password">
+      </div>
+
+  <button class="btn btn-primary">Login</button>
+
+  <div *ngIf="invlidLogin" class="alert alert-danger" role="alert">
+    Invalid Email or Password
+  </div>
+
+  <a [routerLink]="['/register']" class="btn btn-link"> Don't Have Account ? Register</a>
+</form>

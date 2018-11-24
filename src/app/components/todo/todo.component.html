@@ -1,0 +1,82 @@
+
+<div class="welcomeMessage">Welcome {{userSerivce.user.name}}</div>
+<a class="logoutBtn" (click)="userSerivce.logout()">logout</a>
+
+
+
+<form (ngSubmit)="createTodo(toDoForm)" #toDoForm="ngForm"  >
+
+    <div class="row">
+        <div class="form-group col-lg-8">
+            <input required name="name" id="name" #name="ngModel" [(ngModel)]="toDoService.todo.name"  class="form-control" type="text" placeholder="Enter Name of Todo">
+        </div>
+    
+        <!-- <div class="form-group col-lg-4">
+            <input required name="tag" id="tag" (keyup.enter)="addTag(tag)" #tag #name="ngModel" [(ngModel)]="toDoService.todo.name"  class="form-control" type="text" placeholder="tag"><
+            
+        </div> -->
+
+        <div class="form-group input-group mb-3 col-lg-4 row">
+            <input class="form-control" required name="mytag" id="tag" #mytag type="text" placeholder="tag">
+            <div class="input-group-append">
+              <button (click)="addTag(mytag)" class="btn btn-outline-secondary addTagBtn" type="button">+</button>
+            </div>
+          </div>
+    </div>
+
+    <div class="form-group">
+        <textarea required name="description" id="description" #description="ngModel" [(ngModel)]="toDoService.todo.description"  class="form-control" type="text" placeholder="Description"></textarea>
+    </div>
+
+    <div class="tag-list row">
+        <ul>
+            <li *ngFor="let tag of tags">{{tag}}</li>
+        </ul>
+    </div>
+    
+    <button class="btn btn-primary">Add</button>
+</form>
+
+<input class="filtter" type="text" placeholder="filter By tag" #tag (keyup)="filter(tag)" />
+
+<div class="form-check-doneToDos">
+    <input class="doneToDos-input" (change)="selectDone(doneCheck)" #doneCheck type="checkbox" value="false" id="doneToDos">
+    <label class="doneToDos-label" for="doneToDos">
+      display done todos
+    </label>
+  </div>
+
+
+<ul class="todoList">
+  <li *ngFor="let todo of todoList ">
+     
+      <div class="left-side">
+          <div class="name">
+              <span class="name">Name: </span>
+              {{todo.name}} 
+          </div>
+          <div class="description">
+                <span class="name">Description: </span>
+                {{todo.description}} 
+            </div>
+          <span *ngIf="todo.complete" class="done-tag">done</span>
+
+          <div class="tag-list inline row">
+            <ul>
+                <li *ngFor="let tag of todo.tags">{{tag.name}}</li>
+            </ul>
+          </div>
+        </div>
+
+
+      
+      <div class="right-side">
+          <button class="btn btn-danger"  (click)="delete(todo)">Delete</button>
+          <button type="button" *ngIf="!todo.complete" (click)="isDone(todo)" class="btn btn-primary">Mark As Done</button>
+          <button type="button" *ngIf="todo.complete" (click)="isDone(todo)" class="btn btn-light">Mark As Not Done</button>
+     </div>
+  
+    </li>
+</ul>
+
+
